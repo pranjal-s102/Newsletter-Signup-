@@ -6,7 +6,6 @@ const port = process.env.PORT||3000;
 const regionCode=data[0].regionCode;
 const apiKey = data[0].apiKey; + regionCode;
 const listID = data[0].listID;
-console.log(listID+" "+apiKey+" "+regionCode);
 const app = express();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({
