@@ -57,7 +57,7 @@ app.post("/failure", function(req, res) {
 })
 
 
-app.listen(port || 3000, function() {
+app.listen(port, function() {
   console.log("Listening at port " + port );
 
 })
