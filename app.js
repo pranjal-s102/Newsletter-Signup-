@@ -36,9 +36,8 @@ app.get("/", function(req, res) {
       method: "POST",
       auth: "Hello:" + apiKey
     }
-    const request = https.request(url, options, function(response) { //when we want to post data
+    const request = https.request(url, options, function(response) {
       response.on("data", function(data) {
-        //console.log(JSON.parse(data));
         console.log(response.statusCode);
         if (response.statusCode == 200) {
           req.sendFile(__dirname + "/success.html");
