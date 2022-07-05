@@ -1,11 +1,13 @@
 const express = require("express");
-const app = express();
 const https = require("https");
 const bodyParser = require("body-parser");
-const listID = "ee63eda504";
-const port = process.env.PORT;
-const regionCode = "us17";
-const apiKey = "d008a6874902fe5cb322e5b627a1e2da-" + regionCode;
+const data = require('./secrets.json');
+const port = process.env.PORT||3000;
+const regionCode=data[0].regionCode;
+const apiKey = data[0].apiKey; + regionCode;
+const listID = data[0].listID;
+console.log(listID+" "+apiKey+" "+regionCode);
+const app = express();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({
   extended: true
@@ -33,7 +35,7 @@ app.get("/", function(req, res) {
     const url = "https://us17.api.mailchimp.com/3.0/lists/" + listID;
     var options = {
       method: "POST",
-      auth: "pranjal1:" + apiKey
+      auth: "Hello:" + apiKey
     }
     const request = https.request(url, options, function(response) { //when we want to post data
       response.on("data", function(data) {
@@ -45,7 +47,6 @@ app.get("/", function(req, res) {
           req.sendFile(__dirname + "/failure.html");
         }
       })
-
     })
     request.write(jsonData);
     request.end();
@@ -54,10 +55,11 @@ app.get("/", function(req, res) {
 
 
 app.post("/failure", function(req, res) {
-  res.redirext("/");
+  res.redirect("/");
 })
 
 
 app.listen(port || 3000, function() {
-  console.log("Listening at port " + port);
+  console.log("Listening at port " + port );
+
 })
